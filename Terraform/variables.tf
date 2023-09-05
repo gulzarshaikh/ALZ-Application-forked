@@ -2,7 +2,7 @@ variable "location" {
   default = "UAE North"
 }
 variable "Environment" {
-  default = "Production"
+  default = "Non-Production"
 }
 variable "ARM_HUB_CLIENT_SECRET" {
 }
@@ -12,7 +12,6 @@ variable "ARM_HUB_SUBSCRIPTION_ID" {
 }
 
 ##RG DETAILS
-
 variable "rg_details" {
 
   type = map(object({
@@ -23,34 +22,32 @@ variable "rg_details" {
 
   default = {
 
-    rg-applications-web-uaen-01 = {
-      rg_name       = "rg-applications-web-uaen-01"
-      purpose  = "Web Resources for applications"
+    rg-nonprod-app-uaen-01 = {
+      rg_name       = "rg-nonprod-app-uaen-01"
+      purpose  = "App Resources for infrastructure"
     },
-    rg-applications-db-uaen-01 = {
-      rg_name       = "rg-applications-db-uaen-01"
-      purpose  = "DB Resources for applications"
+    rg-nonprod-storage-uaen-01 = {
+      rg_name       = "rg-nonprod-storage-uaen-01"
+      purpose  = "Boot Diagnostics Resources for staging"
     },
-    rg-applications-app-uaen-01 = {
-      rg_name       = "rg-applications-app-uaen-01"
-      purpose  = "App Resources for applications"
-    },
-    rg-applications-storage-uaen-01 = {
-      rg_name       = "rg-applications-storage-uaen-01"
-      purpose  = "Boot Diagnostics Storage Resources for applications"
-    },
-    rg-applications-keyvault-uaen-01 = {
-      rg_name       = "rg-applications-keyvault-uaen-01"
+    rg-nonprod-keyvault-uaen-01 = {
+      rg_name       = "rg-nonprod-keyvault-uaen-01"
       purpose  = "Key vault"
     },
-    rg-applications-network-uaen-01 = {
-      rg_name       = "rg-applications-network-uaen-01"
+    rg-nonprod-db-uaen-01 = {
+      rg_name       = "rg-nonprod-db-uaen-01"
+      purpose  = "DB Resources for infrastructure"
+    },
+    rg-nonprod-web-uaen-01 = {
+      rg_name       = "rg-nonprod-web-uaen-01"
+      purpose  = "Web Resources for infrastructure"
+    },
+    rg-nonprod-network-uaen-01 = {
+      rg_name       = "rg-nonprod-network-uaen-01"
       purpose  = "Network Resources for infrastructure"
     }
   }
 }
-
-#SUBNET BLOCK
 
 variable "subnet_details" {
 
@@ -64,99 +61,46 @@ variable "subnet_details" {
 
   default = {
 
-    snet-applications-web-uaen-01 = {
-      subnet_name       = "snet-applications-web-uaen-01"
-      address_prefixes  = ["10.223.1.0/24"]
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name = "vnet-applications-uaen-01"
+    snet-app-uaen-01 = {
+      subnet_name       = "snet-app-uaen-01"
+      address_prefixes  = ["10.232.1.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     },
-    snet-applications-app-uaen-01 = {
-      subnet_name       = "snet-applications-app-uaen-01"
-      address_prefixes  = ["10.223.2.0/24"]
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name = "vnet-applications-uaen-01"
+    snet-web-uaen-01 = {
+      subnet_name       = "snet-web-uaen-01"
+      address_prefixes  = ["10.232.2.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     },
-    snet-applications-db-uaen-01 = {
-      subnet_name       = "snet-applications-db-uaen-01"
-      address_prefixes  = ["10.223.3.0/24"]
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name = "vnet-applications-uaen-01"
+    snet-db-uaen-01 = {
+      subnet_name       = "snet-db-uaen-01"
+      address_prefixes  = ["10.232.3.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     },
-    snet-applications-storage-uaen-01 = {
-       subnet_name       = "snet-applications-storage-uaen-01"
-       address_prefixes  = ["10.223.4.0/24"]
-       resource_group_name = "rg-applications-network-uaen-01"
-       virtual_network_name = "vnet-applications-uaen-01"
+    snet-pep-uaen-01 = {
+      subnet_name       = "snet-pep-uaen-01"
+      address_prefixes  = ["10.232.4.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     },
-    snet-applications-transit-uaen-01 = {
-      subnet_name       = "snet-applications-transit-uaen-01"
-      address_prefixes  = ["10.223.5.0/24"]
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name = "vnet-applications-uaen-01"
+    snet-transit-uaen-01 = {
+      subnet_name       = "snet-transit-uaen-01"
+      address_prefixes  = ["10.232.5.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     },
-    snet-applications-pep-uaen-01 = {
-      subnet_name       = "snet-applications-pep-uaen-01"
-      address_prefixes  = ["10.223.6.0/24"]
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name = "vnet-applications-uaen-01"
+    snet-storage-uaen-01 = {
+      subnet_name       = "snet-storage-uaen-01"
+      address_prefixes  = ["10.232.6.0/24"]
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name = "vnet-nonprod-uaen-01"
     }
   }
 }
 
-
-
-#VNET BLOCK
-
-variable "vnet_details" {
-
-  type = map(object({
-
-    vnet_name       = string
-    resource_group_name = string
-    address_space  = list(string)
-    purpose  = string
-  }))
-
-  default = {
-
-    vnet-applications-uaen-01 = {
-      vnet_name      = "vnet-applications-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      address_space  = ["10.223.0.0/16"]
-      purpose  = "applications production virtual network"
-    }
-  }
-}
-
-
-#STORAGE ACCOUNT BLOCK
-
-variable "storage_details" {
-
-  type = map(object({
-
-    st_name       = string
-    purpose  = string
-    resource_group = string
-    account_tier = string
-    account_replication_type = string
-  }))
-
-  default = {
-
-    stbootdiagappsuaen01 = {
-      st_name       = "stbootdiagappsuaen01"
-      purpose  = "Diagnostic logs for Terraform runner in Applications"
-      resource_group = "rg-applications-storage-uaen-01"
-      account_tier = "Standard"
-      account_replication_type = "LRS"
-      
-    }
-}
-}
-
-
-#NSG DETAILS BLOCK
+##NSG DETAILS
 
 variable "nsg_details" {
 
@@ -169,40 +113,40 @@ variable "nsg_details" {
 
   default = {
 
-    nsg-snet-applications-web-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-web-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for Web"
+    nsg-snet-app-uaen-01 = {
+      nsg_name       = "nsg-snet-app-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for Application"
     },
-    nsg-snet-applications-app-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-app-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for applications"
+    nsg-snet-web-uaen-01 = {
+      nsg_name       = "nsg-snet-web-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for Web"
     },
-    nsg-snet-applications-db-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-db-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for DB"
+    nsg-snet-db-uaen-01 = {
+      nsg_name       = "nsg-snet-db-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for DB"
     },
-    nsg-snet-applications-storage-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-storage-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for storage"
-    },  
-    nsg-snet-applications-transit-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-transit-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for transit"
+    nsg-snet-pep-uaen-01 = {
+      nsg_name       = "nsg-snet-pep-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for private endpoint"
     },
-    nsg-snet-applications-pep-uaen-01 = {
-      nsg_name       = "nsg-snet-applications-pep-uaen-01"
-      resource_group_name = "rg-applications-network-uaen-01"
-      purpose  = "Network Security Group for private endpoint"
+    nsg-snet-transit-uaen-01 = {
+      nsg_name       = "nsg-snet-transit-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for transit"
+    },
+    nsg-snet-storage-uaen-01 = {
+      nsg_name       = "nsg-snet-storage-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      purpose = "Network Security Group for storage"
     }
   }
 }
 
-#NSG ASSOCIATION
+##NSG ASSOCIATION
 
 variable "nsg_association" {
 
@@ -215,35 +159,34 @@ variable "nsg_association" {
 
   default = {
 
-    web = {
-      subnet_name = "snet-applications-web-uaen-01"
-      nsg_name = "nsg-snet-applications-web-uaen-01"
-    },
     app = {
-      subnet_name       = "snet-applications-app-uaen-01"
-      nsg_name            = "nsg-snet-applications-app-uaen-01"
+      subnet_name = "snet-app-uaen-01"
+      nsg_name = "nsg-snet-app-uaen-01"
     },
     db = {
-      subnet_name       = "snet-applications-db-uaen-01"
-      nsg_name            = "nsg-snet-applications-db-uaen-01"
+      subnet_name       = "snet-db-uaen-01"
+      nsg_name            = "nsg-snet-db-uaen-01"
+    },
+    web = {
+      subnet_name       = "snet-web-uaen-01"
+      nsg_name            = "nsg-snet-web-uaen-01"
+    },
+    pep= {
+      subnet_name       = "snet-pep-uaen-01"
+      nsg_name       = "nsg-snet-pep-uaen-01"
+    },
+    transit = {
+      subnet_name       = "snet-transit-uaen-01"
+      nsg_name       = "nsg-snet-transit-uaen-01"
     },
     storage = {
-      subnet_name       = "snet-applications-storage-uaen-01"
-      nsg_name            = "nsg-snet-applications-storage-uaen-01"
-    },  
-    transit = {
-      subnet_name       = "snet-applications-transit-uaen-01"
-      nsg_name            = "nsg-snet-applications-transit-uaen-01"
-    },    
-    pep = {
-      subnet_name       = "snet-applications-pep-uaen-01"
-      nsg_name            = "nsg-snet-applications-pep-uaen-01"
+      subnet_name       = "snet-storage-uaen-01"
+      nsg_name       = "nsg-snet-storage-uaen-01"
     }
   }
 }
 
-
-#ROUTE DEATILS
+##ROUTE DETAILS
 
 variable "route_details" {
 
@@ -260,64 +203,64 @@ variable "route_details" {
 
   default = {
 
-    rt-snet-applications-web-uaen-01 = {
-      route_table_name       = "rt-snet-applications-web-uaen-01"
-      route_name            = "rt-snet-applications-web-uaen-01"
-      purpose = "Route table for web"
+    rt-snet-web-uaen-01 = {
+      route_table_name       = "rt-snet-web-uaen-01"
+      route_name            = "rt-snet-web-uaen-01"
+      purpose = "Route table for Web"
       address_prefixes = "0.0.0.0/0"
       next_hop_type = "VirtualAppliance"
       next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
     },
-    rt-snet-applications-app-uaen-01 = {
-      route_table_name       = "rt-snet-applications-app-uaen-01"
-      route_name            = "rt-snet-applications-app-uaen-01"
+    rt-snet-app-uaen-01 = {
+      route_table_name       = "rt-snet-app-uaen-01"
+      route_name            = "rt-snet-app-uaen-01"
       purpose = "Route table for app"
       address_prefixes = "0.0.0.0/0"
       next_hop_type = "VirtualAppliance"
       next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
     },
-    rt-snet-applications-db-uaen-01 = {
-      route_table_name       = "rt-snet-applications-db-uaen-01"
-      route_name            = "rt-snet-applications-db-uaen-01"
-      purpose = "Route table for db"
+    rt-snet-db-uaen-01 = {
+      route_table_name       = "rt-snet-db-uaen-01"
+      route_name            = "rt-snet-db-uaen-01"
+      purpose = "Route table for DB"
       address_prefixes = "0.0.0.0/0"
       next_hop_type = "VirtualAppliance"
       next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
     },
-    rt-snet-applications-storage-uaen-01 = {
-      route_table_name       = "rt-snet-applications-storage-uaen-01"
-      route_name            = "rt-snet-applications-storage-uaen-01"
-      purpose = "Route table for storage"
-      address_prefixes = "0.0.0.0/0"
-      next_hop_type = "VirtualAppliance"
-      next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
-    },    
-    rt-snet-applications-transit-uaen-01 = {
-      route_table_name       = "rt-snet-applications-transit-uaen-01"
-      route_name            = "rt-snet-applications-transit-uaen-01"
-      purpose = "Route table for transit"
-      address_prefixes = "0.0.0.0/0"
-      next_hop_type = "VirtualAppliance"
-      next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
-    },    
-    rt-snet-applications-pep-uaen-01 = {
-      route_table_name       = "rt-snet-applications-pep-uaen-01"
-      route_name            = "rt-snet-applications-pep-uaen-01"
+    rt-snet-pep-uaen-01 = {
+      route_table_name       = "rt-snet-pep-uaen-01"
+      route_name       = "rt-snet-pep-uaen-01"
       purpose = "Route table for private endpoint"
       address_prefixes = "0.0.0.0/0"
       next_hop_type = "VirtualAppliance"
       next_hop_in_ip_address = "10.220.3.4"
-      resource_group_name = "rg-applications-network-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+    },
+    rt-snet-transit-uaen-01 = {
+      route_table_name       = "rt-snet-transit-uaen-01"
+      route_name       = "rt-snet-transit-uaen-01"
+      purpose = "Route table for transit"
+      address_prefixes = "0.0.0.0/0"
+      next_hop_type = "VirtualAppliance"
+      next_hop_in_ip_address = "10.220.3.4"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+    },
+    rt-snet-storage-uaen-01 = {
+      route_table_name       = "rt-snet-storage-uaen-01"
+      route_name       = "rt-snet-storage-uaen-01"
+      purpose = "Route table for storage"
+      address_prefixes = "0.0.0.0/0"
+      next_hop_type = "VirtualAppliance"
+      next_hop_in_ip_address = "10.220.3.4"
+      resource_group_name = "rg-nonprod-network-uaen-01"
     }
   }
 }
 
-#ROUTE ASSOCIATION
+##ROUTE ASSOCIATION
 
 variable "route_association" {
 
@@ -331,36 +274,60 @@ variable "route_association" {
   default = {
 
     web = {
-      route_table_name = "rt-snet-applications-web-uaen-01"
-      subnet_name      = "snet-applications-web-uaen-01"
+      route_table_name = "rt-snet-web-uaen-01"
+      subnet_name      = "snet-web-uaen-01"
     },
     app = {
-      route_table_name = "rt-snet-applications-app-uaen-01"
-      subnet_name      = "snet-applications-app-uaen-01"
+      route_table_name = "rt-snet-app-uaen-01"
+      subnet_name      = "snet-app-uaen-01"
     },
     db = {
-      route_table_name       = "rt-snet-applications-db-uaen-01"
-      subnet_name            = "snet-applications-db-uaen-01"
+      route_table_name       = "rt-snet-db-uaen-01"
+      subnet_name            = "snet-db-uaen-01"
+    },
+    pep= {
+      route_table_name       = "rt-snet-pep-uaen-01"
+      subnet_name            = "snet-pep-uaen-01"
+    },
+    transit = {
+      route_table_name       = "rt-snet-transit-uaen-01"
+      subnet_name            = "snet-transit-uaen-01"
     },
     storage = {
-      route_table_name       = "rt-snet-applications-storage-uaen-01"
-      subnet_name            = "snet-applications-storage-uaen-01"
-    },   
-    transit = {
-      route_table_name       = "rt-snet-applications-transit-uaen-01"
-      subnet_name            = "snet-applications-transit-uaen-01"
-    },     
-    pep= {
-      route_table_name       = "rt-snet-applications-pep-uaen-01"
-      subnet_name            = "snet-applications-pep-uaen-01"
+      route_table_name       = "rt-snet-storage-uaen-01"
+      subnet_name            = "snet-storage-uaen-01"
     }
   }
 }
 
 
-##VNET PEERING applications to HUB
 
-variable "vnet_peering_applications_to_hub" {
+##VNET DETAILS
+
+variable "vnet_details" {
+
+  type = map(object({
+
+    vnet_name       = string
+    resource_group_name = string
+    address_space  = list(string)
+    purpose  = string
+  }))
+
+  default = {
+
+    vnet-nonprod-uaen-01 = {
+      vnet_name      = "vnet-nonprod-uaen-01"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      address_space  = ["10.232.0.0/16"]
+      purpose = "Nonprod Virtual network"
+    }
+  }
+}
+
+##VNET PEERING NONPROD to HUB
+
+variable "vnet_peering_nonprod_to_hub" {
 
   type = map(object({
 
@@ -371,16 +338,16 @@ variable "vnet_peering_applications_to_hub" {
 
   default = {
 
-    peering-applications-to-hub = {
-      vnet_peering_name = "peering-applications-to-hub"
-      resource_group_name = "rg-applications-network-uaen-01"
-      virtual_network_name  = "vnet-applications-uaen-01"
+    peering-nonprod-to-hub = {
+      vnet_peering_name = "peering-nonprod-to-hub"
+      resource_group_name = "rg-nonprod-network-uaen-01"
+      virtual_network_name  = "vnet-nonprod-uaen-01"
       
     }
   }
 }
 
-##VNET PEERING HUB to applications
+##VNET PEERING HUB to NONPROD
 
 
 variable "resource_group_name_hub" {
@@ -392,7 +359,7 @@ variable "hub_vnet_name" {
     default = "vnet_hub_uaenorth_001"
 }
 
-variable "vnet_peering_hub_to_applications" {
+variable "vnet_peering_hub_to_nonprod" {
 
   type = map(object({
 
@@ -401,13 +368,228 @@ variable "vnet_peering_hub_to_applications" {
 
   default = {
 
-    peering-hub-to-applications = {
-      vnet_peering_name = "peering-hub-to-applications"
+    peering-nonprod-to-hub = {
+      vnet_peering_name = "peering-hub-to-nonprod"
     }
   }
 }
 
+##STORAGE DETAILS
 
+variable "storage_details" {
 
+  type = map(object({
 
+    st_name       = string
+    purpose  = string
+    resource_group = string
+    account_tier = string
+    account_replication_type = string
+  }))
 
+  default = {
+
+    teststbootdiagnonprod = {
+      st_name       = "teststbootdiagnonprod"
+      purpose  = "Diagnostic logs for nonprod"
+      resource_group = "rg-nonprod-storage-uaen-01"
+      account_tier = "Standard"
+      account_replication_type = "LRS"
+      
+    }
+}
+}
+
+##STORAGE ACCOUNT ENCRYPTION DETAILS
+
+variable "encryption_scopes" {
+  description = "Encryption scopes, keys are scope names. more info https://docs.microsoft.com/en-us/azure/storage/common/infrastructure-encryption-enable?tabs=portal"
+  type = map(object({
+    source                           = optional(string)
+    enable_infrastructure_encryption = optional(bool)
+    
+  }))
+
+  default = {
+      teststbootdiagnonprod = {
+         source = "Microsoft.Storage"
+         enable_infrastructure_encryption = true
+      } 
+  }
+}
+
+variable "account_kind" {
+  description = "Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2"
+  type        = string
+  default     = "StorageV2"
+}
+
+variable "enable_large_file_share" {
+  description = "Enable Large File Share."
+  type        = bool
+  default     = false
+}
+
+variable "enable_hns" {
+  description = "Enable Hierarchical Namespace (can be used with Azure Data Lake Storage Gen 2)."
+  type        = bool
+  default     = false
+}
+
+/*variable "enable_sftp" {
+  description = "Enable SFTP for storage account (enable_hns must be set to true for this to work)."
+  type        = bool
+  default     = false
+}*/
+
+variable "enable_https_traffic_only" {
+  description = "Forces HTTPS if enabled."
+  type        = bool
+  default     = true
+}
+
+variable "min_tls_version" {
+  description = "The minimum supported TLS version for the storage account."
+  type        = string
+  default     = "TLS1_2"
+}
+
+variable "allow_nested_items_to_be_public" {
+  description = "Allow or disallow public access to all blobs or containers in the storage account."
+  type        = bool
+  default     = false
+}
+
+variable "access_list" {
+  description = "Map of CIDRs Storage Account access."
+  type        = string
+  default     = "10.232.0.0/16"
+}
+
+variable "service_endpoints" {
+  description = "Creates a virtual network rule in the subnet_id (values are virtual network subnet ids)."
+  type        = map(string)
+  default     = {
+    "subnet1" = "10.232.2.0/24",
+    "subnet2" = "10.232.1.0/24",
+    "subnet3" = "10.232.3.0/24"
+  }
+
+}
+
+variable "traffic_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None."
+  type        = string
+  default     = "Microsoft network routing"
+}
+
+/*variable "blob_delete_retention_days" {
+  description = "Retention days for deleted blob. Valid value is between 1 and 365 (set to 0 to disable)."
+  type        = number
+  default     = 7
+}*/
+variable "infrastructure_encryption_enabled" {
+  description = "Is infrastructure encryption enabled? Changing this forces a new resource to be created."
+  type        = bool
+  default     = true
+}
+
+variable "nfsv3_enabled" {
+  description = "Is NFSv3 protocol enabled? Changing this forces a new resource to be created"
+  type        = bool
+  default     = false
+}
+
+variable "default_network_rule" {
+  description = "Specifies the default action of allow or deny when no other network rules match"
+  type        = string
+  default     = "Deny"
+
+  validation {
+    condition     = (contains(["deny", "allow"], lower(var.default_network_rule)))
+    error_message = "The default_network_rule must be either \"Deny\" or \"Allow\"."
+  }
+}
+variable "network_rules" {
+  description = "Network rules restricting access to the storage account."
+  type = object({
+    ip_rules   = list(string)
+    subnet_ids = list(string)
+    bypass     = list(string)
+  })
+  default = null
+}
+variable "shared_access_key_enabled" {
+  description = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key"
+  type        = bool
+  default     = true
+}
+
+variable "blob_versioning_enabled" {
+  description = "Controls whether blob object versioning is enabled."
+  type        = bool
+  default     = false
+}
+
+##Network rules for storage account
+
+/*locals {
+  network_rule = [
+  /*type = map(object({
+    
+    ip_rules = list(string)
+    st_name = string
+    subnet_name = string
+
+  }))
+  #default = {
+    teststbootdiagnonprod = {
+      st_name = "teststbootdiagnonprod"
+      subnet_name = azurerm_subnet.subnet[0].id
+      ip_rules = ["10.232.2.0/24"]
+    },
+    teststbootdiagnonprod = {
+      st_name = "teststbootdiagnonprod"
+      subnet_name = azurerm_subnet.subnet[1].id
+      ip_rules = ["10.232.1.0/24"]
+    },
+    teststbootdiagnonprod = {
+      st_name = "teststbootdiagnonprod"
+      subnet_name = azurerm_subnet.subnet[2].id
+      ip_rules = ["10.232.3.0/24"]
+    },
+#}
+]
+}*/
+
+locals {
+  network_rule = [
+  #   type = map(object({
+    
+  #     ip_rules = list(string)
+  #     st_name = string
+  #     subnet_name = string
+
+  # }))
+  #default = {
+    {
+      name         = "rule1",
+      st_name = "teststbootdiagnonprod"
+      subnet_name = "snet-web-uaen-01"
+      ip_rules = ["10.232.2.0/24"]
+    },
+    {
+      name         = "rule2",
+      st_name = "teststbootdiagnonprod"
+      subnet_name = "snet-app-uaen-01"
+      ip_rules = ["10.232.1.0/24"]
+    },
+    {
+      name         = "rule3",
+      st_name = "teststbootdiagnonprod"
+      subnet_name = "snet-db-uaen-01"
+      ip_rules = ["10.232.3.0/24"]
+    },
+#}
+]
+}
